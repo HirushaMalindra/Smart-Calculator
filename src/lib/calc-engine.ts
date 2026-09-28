@@ -22,11 +22,11 @@ function tokenize(input: string): Token[] {
   let i = 0;
   const s = input.replace(/×/g, "*").replace(/÷/g, "/").replace(/−/g, "-").replace(/π/g, "pi");
   while (i < s.length) {
-    const c = s[i];
+    const c = s.charAt(i);
     if (c === " ") { i++; continue; }
     if (/[0-9.]/.test(c)) {
       let j = i;
-      while (j < s.length && /[0-9.]/.test(s[j])) j++;
+      while (j < s.length && /[0-9.]/.test(s.charAt(j))) j++;
       const v = parseFloat(s.slice(i, j));
       if (Number.isNaN(v)) throw new Error("Bad number");
       tokens.push({ t: "num", v });
@@ -35,7 +35,7 @@ function tokenize(input: string): Token[] {
     }
     if (/[a-z]/.test(c)) {
       let j = i;
-      while (j < s.length && /[a-z]/.test(s[j])) j++;
+      while (j < s.length && /[a-z]/.test(s.charAt(j))) j++;
       const word = s.slice(i, j);
       if (word === "pi") tokens.push({ t: "num", v: Math.PI });
       else if (word === "e") tokens.push({ t: "num", v: Math.E });
