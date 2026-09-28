@@ -132,7 +132,7 @@ export function Calculator() {
     try {
       const text = await navigator.clipboard.readText();
       const cleaned = text.trim().replace(/[^0-9+\-*/^%().!a-zπ×÷−]/gi, "");
-      if (!cleaned) return toast.error("Clipboard has no usable expression");
+      if (!cleaned) { toast.error("Clipboard has no usable expression"); return; }
       push(cleaned);
       toast.success("Pasted from clipboard");
     } catch {
