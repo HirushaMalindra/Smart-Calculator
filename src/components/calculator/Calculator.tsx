@@ -33,7 +33,7 @@ export function Calculator() {
   const [preview, setPreview] = useState<string | null>(null);
   const [history, setHistory] = useState<HistoryEntry[]>([]);
   const [angleMode, setAngleMode] = useState<AngleMode>("deg");
-  const [theme, setTheme] = useState<CalcTheme>(THEMES[0]);
+  const [theme, setTheme] = useState<CalcTheme>(THEMES[0]!);
   const [showHistory, setShowHistory] = useState(false);
   const [showThemes, setShowThemes] = useState(false);
   const [forceSci, setForceSci] = useState(false);
@@ -116,6 +116,7 @@ export function Calculator() {
       case "EE": return push("e");
       default: return push(k);
     }
+    return undefined;
   };
 
   const copyText = async (text: string, label = "Copied to clipboard") => {
