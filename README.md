@@ -56,4 +56,19 @@ npm install
 npm run dev
 ```
 
+## Deploy to GitHub Pages
+
+The GitHub Actions workflow builds the app as a static site and deploys it to
+GitHub Pages whenever changes are pushed to `main`.
+
+1. Push this repository to GitHub.
+2. In the repository, open **Settings → Pages** and set **Build and deployment**
+   to **GitHub Actions**.
+3. Open the **Actions** tab and wait for the **Deploy to GitHub Pages** workflow
+   to finish. The deployed site will be available at
+   `https://<your-username>.github.io/<repository-name>/`.
+
+The workflow sets the repository subpath automatically. For a custom domain,
+change `BASE_PATH` in `.github/workflows/deploy-pages.yml` to `/`.
+
 ---

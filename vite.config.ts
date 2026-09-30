@@ -6,10 +6,23 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+const basePath = process.env.BASE_PATH ?? "/";
+const routerBasePath = basePath.replace(/\/$/, "") || "/";
+
 export default defineConfig({
+  nitro: false,
+  vite: {
+    base: basePath,
+  },
   tanstackStart: {
+    prerender: {
+      enabled: true,
+      failOnError: true,
+    },
+    router: {
+      basepath: routerBasePath,
+    },
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-    // nitro/vite builds from this
     server: { entry: "server" },
   },
 });
