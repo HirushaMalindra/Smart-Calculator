@@ -4,6 +4,7 @@
 
 Welcome to the initial public release of CalcFlow — a modern, responsive, mobile-first calculator built with React 19, Tailwind CSS, and TanStack Start.
 
+https://hirushamalindra.github.io/Smart-Calculator/
 ---
 
 ✨ Highlights & Features
