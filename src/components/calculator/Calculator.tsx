@@ -123,9 +123,16 @@ export function Calculator() {
     try {
       await navigator.clipboard.writeText(text);
       toast.success(label);
-    } catch {
-      toast.error("Copy failed");
+       } catch (err) {
+      // Fix 3: show a clear message for division by zero
+      if (err instanceof Error && err.message === "÷ by 0") {
+        setPreview(null);
+        setError("Cannot divide by zero");
+      } else {
+        toast.error("Invalid expression");
+      }
     }
+
   };
 
   const pasteFromClipboard = async () => {
