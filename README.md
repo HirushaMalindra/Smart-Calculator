@@ -47,7 +47,7 @@ Personalize your workspace with 5 built-in themes:
 
 ```bash
 # Clone the repository
-https://github.com/HirushaMalindra/Smart-Calculator.git
+git clone https://github.com/HirushaMalindra/Smart-Calculator.git
 
 # Install dependencies
 npm install
