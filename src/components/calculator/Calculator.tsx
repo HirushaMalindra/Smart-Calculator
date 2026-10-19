@@ -102,6 +102,11 @@ export function Calculator() {
     if (k === "=") return equals();
     push(k);
   };
+  const handleKeyRef = useRef(handleKey);
+
+  useEffect(() => {
+    handleKeyRef.current = handleKey;
+  });
 
   const handleSci = (k: string) => {
     switch (k) {
@@ -118,6 +123,38 @@ export function Calculator() {
     }
     return undefined;
   };
+
+  useEffect(() => {
+    const handleKeyboard = (event: KeyboardEvent) => {
+      const target = event.target;
+      if (
+        event.ctrlKey ||
+        event.altKey ||
+        event.metaKey ||
+        (target instanceof HTMLElement &&
+          (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName)))
+      ) {
+        return;
+      }
+
+      let key: string | undefined;
+      if (/^[0-9.]$/.test(event.key)) key = event.key;
+      else if (["+", "-", "*", "/", "%", "^", "!", "(", ")"].includes(event.key)) {
+        key = event.key === "-" ? "−" : event.key === "*" ? "×" : event.key === "/" ? "÷" : event.key;
+      } else if (/^[a-z]$/i.test(event.key)) key = event.key.toLowerCase();
+      else if (event.key === "Enter" || event.key === "=") key = "=";
+      else if (event.key === "Backspace") key = "⌫";
+      else if (event.key === "Escape" || event.key === "Delete") key = "C";
+
+      if (key) {
+        event.preventDefault();
+        handleKeyRef.current(key);
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyboard);
+    return () => window.removeEventListener("keydown", handleKeyboard);
+  }, []);
 
   const copyText = async (text: string, label = "Copied to clipboard") => {
     try {
